@@ -392,8 +392,9 @@ void LXQtPanel::saveSettings(bool later)
  ************************************************/
 void LXQtPanel::ensureVisible()
 {
-    if (!canPlacedOn(mScreenNum, mPosition))
-        setPosition(findAvailableScreen(mPosition), mPosition, false);
+    //if (!canPlacedOn(mScreenNum, mPosition))
+    if (mScreenNum >= QApplication::screens().size())
+        setPosition(0, mPosition, false);
     else
         mActualScreenNum = mScreenNum;
 

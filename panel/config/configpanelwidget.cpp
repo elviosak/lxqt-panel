@@ -286,6 +286,8 @@ void ConfigPanelWidget::addPosition(const QString& name, int screen, LXQtPanel::
 {
     if (LXQtPanel::canPlacedOn(screen, position))
         ui->comboBox_position->addItem(name, QVariant::fromValue(ScreenPosition{screen, position}));
+    else
+        ui->comboBox_position->addItem(QStringLiteral("%1 (Unsupported)").arg(name), QVariant::fromValue(ScreenPosition{screen, position}));
 }
 
 
