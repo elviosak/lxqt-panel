@@ -1,24 +1,24 @@
 set(PLUGIN "wingmenu")
 
 set(HEADERS
-  "${PLUGIN}plugin.h"
-  "${PLUGIN}configuration.h"
-  "${PLUGIN}widget.h"
+  wingmenuplugin.h
+  wingmenuconfiguration.h
+  wingmenuwidget.h
   itemdescriptiondelegate.h
   applicationsview.h
   common.h
 )
 
 set(SOURCES
-  "${PLUGIN}plugin.cpp"
-  "${PLUGIN}configuration.cpp"
-  "${PLUGIN}widget.cpp"
+  wingmenuplugin.cpp
+  wingmenuconfiguration.cpp
+  wingmenuwidget.cpp
   itemdescriptiondelegate.cpp
   applicationsview.cpp
 )
 
 set(UIS
-  "${PLUGIN}configuration.ui"
+  wingmenuconfiguration.ui
 )
 
 set(LIBRARIES
