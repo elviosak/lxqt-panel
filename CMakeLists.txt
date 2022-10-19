@@ -238,6 +238,12 @@ if(VOLUME_PLUGIN)
     add_subdirectory(plugin-volume)
 endif()
 
+setByDefault(WINGMENU_PLUGIN Yes)
+if(WINGMENU_PLUGIN)
+    list(APPEND ENABLED_PLUGINS "Wing Menu")
+    add_subdirectory(plugin-wingmenu)
+endif(WINGMENU_PLUGIN)
+
 setByDefault(WORLDCLOCK_PLUGIN Yes)
 if(WORLDCLOCK_PLUGIN)
     list(APPEND STATIC_PLUGINS "worldclock")
