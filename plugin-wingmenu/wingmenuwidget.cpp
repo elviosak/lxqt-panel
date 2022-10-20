@@ -85,7 +85,7 @@ WingMenuWidget::WingMenuWidget(WingMenuPlugin* plugin, XdgMenu* xdgMenu, QWidget
     mCustomizeLeave = mPlugin->settings()->value(QSL("customizeLeave"), false).toBool();
     mCustomActions = mPlugin->settings()->value(QSL("leaveActions"), QStringList()).toStringList();
     auto appLayout = mPlugin->settings()->value(QSL("appLayout"), AppLayout::ListNameAndDescription).value<AppLayout::Layout>();
-    mButtonMultiplier = mPlugin->settings()->value(QSL("buttonSize"), DEFAULT_BUTTON_SIZE).toInt() / 100;
+    mButtonMultiplier = mPlugin->settings()->value(QSL("buttonSize"), DEFAULT_BUTTON_SIZE).toDouble() / 100;
     mApplicationsView = new ApplicationsView(mPlugin->panel()->iconSize(), appLayout, mApplicationsStack);
     mApplicationsModel = new QStandardItemModel(mApplicationsView);
     mProxyModel = new QSortFilterProxyModel(mApplicationsView);
