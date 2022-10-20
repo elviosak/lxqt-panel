@@ -82,6 +82,7 @@ private:
     WingMenuWidget* mMenuWidget;
     QWidgetAction* mMenuAction;
     AppLayout::Layout mAppLayout;
+    int mButtonSize;
     QString mMenuFile;
     XdgMenu* mXdgMenu;
     QTimer* mRebuildTimer;

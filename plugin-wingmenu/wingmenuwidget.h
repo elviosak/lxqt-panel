@@ -111,6 +111,7 @@ private:
     bool mSidebarLeft;
     bool mReverseSidebar;
     AppLayout::Layout mAppLayout;
+    double mButtonMultiplier;
 
     QStringList mFavoritesList;
     bool mAskFavoriteRemove;

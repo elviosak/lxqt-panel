@@ -84,6 +84,7 @@ WingMenuConfiguration::WingMenuConfiguration(PluginSettings& settings,
     connect(ui->sidebarLeftCB, &QCheckBox::toggled, this, [this](bool checked) { this->settings().setValue(QSL("sidebarLeft"), checked); });
     connect(ui->reverseSidebarCB, &QCheckBox::toggled, this, [this](bool checked) { this->settings().setValue(QSL("reverseSidebar"), checked); });
     connect(ui->appLayoutCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [this](int index) { this->settings().setValue(QSL("appLayout"), index); });
+    connect(ui->buttonSizeSB, QOverload<int>::of(&QSpinBox::valueChanged), this, [this](int value) {this->settings().setValue(QSL("buttonSize"), value);});
     connect(ui->askFavoriteRemoveCB, &QCheckBox::toggled, this, [this](bool checked) { this->settings().setValue(QSL("askFavoriteRemove"), checked); });
     connect(ui->iconPB, &QPushButton::clicked, this, [this] {
         QString fileName = QFileDialog::getOpenFileName(this, tr("Choose Icon File"),
@@ -373,6 +374,7 @@ void WingMenuConfiguration::loadSettings() const
     auto sidebarLeft = settings().value(QSL("sidebarLeft"), true).toBool();
     auto reverseSidebar = settings().value(QSL("reverseSidebar"), false).toBool();
     auto appLayout = settings().value(QSL("appLayout"), 0).toInt();
+    auto buttonSize = settings().value(QSL("buttonSize"), DEFAULT_BUTTON_SIZE).toInt();
     auto askFavoriteRemove = settings().value(QSL("askFavoriteRemove"), false).toBool();
     auto customizeLeave = settings().value(QSL("customizeLeave"), false).toBool();
 
@@ -388,6 +390,7 @@ void WingMenuConfiguration::loadSettings() const
     ui->sidebarLeftCB->setChecked(sidebarLeft);
     ui->reverseSidebarCB->setChecked(reverseSidebar);
     ui->appLayoutCombo->setCurrentIndex(appLayout);
+    ui->buttonSizeSB->setValue(buttonSize);
     ui->askFavoriteRemoveCB->setChecked(askFavoriteRemove);
     ui->customizeLeaveGB->setChecked(customizeLeave);
     loadLeaveActions();

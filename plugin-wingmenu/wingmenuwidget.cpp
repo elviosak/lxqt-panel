@@ -43,10 +43,6 @@
 #include <lxqtglobalkeys.h>
 #include <XmlHelper>
 
- // Maybe change this to a configurable option, it is used on the side buttons and category buttons
-#define BTNMULTIPLIER 1.2
-
-
  // Widget/Layout variable names for Default menu layout
  //  _______________________________________________________                                            
  // |                WingMenuWidget - RootBox               |         
@@ -89,6 +85,7 @@ WingMenuWidget::WingMenuWidget(WingMenuPlugin* plugin, XdgMenu* xdgMenu, QWidget
     mCustomizeLeave = mPlugin->settings()->value(QSL("customizeLeave"), false).toBool();
     mCustomActions = mPlugin->settings()->value(QSL("leaveActions"), QStringList()).toStringList();
     auto appLayout = mPlugin->settings()->value(QSL("appLayout"), AppLayout::ListNameAndDescription).value<AppLayout::Layout>();
+    mButtonMultiplier = mPlugin->settings()->value(QSL("buttonSize"), DEFAULT_BUTTON_SIZE).toInt() / 100;
     mApplicationsView = new ApplicationsView(mPlugin->panel()->iconSize(), appLayout, mApplicationsStack);
     mApplicationsModel = new QStandardItemModel(mApplicationsView);
     mProxyModel = new QSortFilterProxyModel(mApplicationsView);
@@ -641,8 +638,8 @@ QToolButton* WingMenuWidget::createSideButton(const XdgDesktopFile& df)
     tb->setIconSize(QSize(mIconSize, mIconSize));
     tb->setToolTip(df.name());
     tb->setDefaultAction(a);
-    tb->setMinimumWidth(tb->sizeHint().width() * BTNMULTIPLIER);
-    tb->setMinimumHeight(tb->sizeHint().height() * BTNMULTIPLIER);
+    tb->setMinimumWidth(tb->sizeHint().width() * mButtonMultiplier);
+    tb->setMinimumHeight(tb->sizeHint().height() * mButtonMultiplier);
     tb->setFocusPolicy(Qt::NoFocus);
     return tb;
 }
@@ -754,8 +751,8 @@ void WingMenuWidget::addCategoryButton(const QIcon& icon, const QString& title, 
     tb->setAutoRaise(true);
     tb->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     tb->setIconSize(QSize(mIconSize, mIconSize));
-    tb->setMinimumHeight(tb->sizeHint().height() * BTNMULTIPLIER);
-    tb->setMinimumWidth(tb->sizeHint().width() * BTNMULTIPLIER);
+    tb->setMinimumHeight(tb->sizeHint().height() * mButtonMultiplier);
+    tb->setMinimumWidth(tb->sizeHint().width() * mButtonMultiplier);
     tb->installEventFilter(this);
     tb->setFocusPolicy(Qt::NoFocus);
     mCategoryBox->addWidget(tb);

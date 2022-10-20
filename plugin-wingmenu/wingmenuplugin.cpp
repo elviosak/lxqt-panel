@@ -58,6 +58,7 @@ WingMenuPlugin::WingMenuPlugin(const ILXQtPanelPluginStartupInfo& startupInfo)
     mWidget->setAutoRaise(true);
     mWidget->setMinimumWidth(1);
     mWidget->setMinimumHeight(1);
+    mButtonSize = settings()->value(QSL("buttonSize"), DEFAULT_BUTTON_SIZE).toInt();
 
     connect(mWidget, &QToolButton::clicked, this, &WingMenuPlugin::showHideMenu);
     settingsChanged();
@@ -108,6 +109,7 @@ void WingMenuPlugin::settingsChanged()
     mShowText = settings()->value(QSL("showText"), true).toBool();
     mText = settings()->value(QSL("text"), tr("Menu")).toString();
     auto appLayout = settings()->value(QSL("appLayout"), AppLayout::ListNameAndDescription).value<AppLayout::Layout>();
+    auto buttonSize = settings()->value(QSL("buttonSize"), DEFAULT_BUTTON_SIZE).toInt();
     auto menuFile = settings()->value(QSL("menuFile"), DEFAULT_MENU_FILE).toString();
 
     if (!mShowIcon && !mShowText) {
@@ -135,15 +137,16 @@ void WingMenuPlugin::settingsChanged()
         }
     }
 
-    if ((mAppLayout != appLayout) || (mMenuFile != menuFile)) {
-        if (mAppLayout != appLayout)
-            mAppLayout = appLayout;
+    if ((mAppLayout != appLayout) || (mMenuFile != menuFile) || (mButtonSize != buttonSize)) {
+        mAppLayout = appLayout;
+        mButtonSize = buttonSize;
         if (mMenuFile != menuFile) {
             mMenuFile = menuFile;
             bool res = mXdgMenu->read(mMenuFile);
             if (!res)
                 QMessageBox::warning(nullptr, QSL("Parse error"), mXdgMenu->errorString());
         }
+
         mRebuildTimer->start();
         return;
     }
